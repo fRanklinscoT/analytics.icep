@@ -35,9 +35,13 @@ df = pd.DataFrame(
     data,
 )
 
-df["lat"] = df["geocode"].apply(lambda x: x["lat"] if x else None)
-df["lon"] = df["geocode"].apply(lambda x: x["lon"] if x else None)
-
+# Check if the dataframe has data and the column exists
+if not df.empty and "geocode" in df.columns:
+    df["lat"] = df["geocode"].apply(lambda x: x["lat"] if x and "lat" in x else None)
+    df["lon"] = df["geocode"].apply(lambda x: x["lng"] if x and "lng" in x else None)
+else:
+    st.info("Waiting for data... No active geocode queries found at the moment.")
+    st.stop()
 df = df.dropna(subset=["lat", "lon"])
 if df.empty:
     st.warning("No data with valid geocodes to display.")
