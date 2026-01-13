@@ -21,7 +21,7 @@ st.markdown(
 st.title("MunicipalHub Analytics Dashboard")
 st.markdown("Welcome, Super User! This dashboard provides a comprehensive overview of municipal queries, their geographical distribution, and key analytics.")
 
-API_URL = "http://localhost:3000/super/geocode"
+API_URL = "https://unwittingly-littlish-riva.ngrok-free.dev/super/geocode"
 
 try:
     response = requests.get(API_URL)
